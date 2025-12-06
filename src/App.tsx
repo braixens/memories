@@ -13,7 +13,7 @@ const App = () => {
             <IParticles />
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/memory" element={<Memories />} />
+                <Route path="/memories" element={<Memories />} />
                 <Route path="/about" element={<About/>} />
             </Routes>
         </div>
