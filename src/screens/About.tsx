@@ -42,16 +42,14 @@ const About = () => {
 
     return (
         <div>
-            <div className="background w-screen h-screen opacity-0 absolute z-0" style={{
+            <div className="background w-screen h-screen opacity-0 absolute z-0 bg-cover bg-no-repeat " style={{
                 backgroundImage: `url(${bgblur})`,
-                backgroundSize: 'cover',
             }}>
                 <Card/>
             </div>
 
-                <div className="newbackground w-screen h-screen absolute z-10 opacity-0" style={{
+                <div className="newbackground w-screen h-screen absolute z-10 opacity-0 bg-cover bg-no-repeat " style={{
                     backgroundImage: `url(${bg})`,
-                    backgroundSize: 'cover',
                 }}></div>
 
         </div>

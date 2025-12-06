@@ -2,7 +2,7 @@ import pfp from '../assets/keychan.jpg'
 
 const Card = () => {
     return (
-        <div className="absolute left-0 top-0 p-8 rounded-4xl z-20  sm:h-1/2 sm:w-1/2"
+        <div className="absolute left-0 top-0 p-8 rounded-4xl z-20  sm:h-fit sm:w-1/2"
              style={{
                  background: 'rgba(255, 255, 255, 0.00)',
                  backdropFilter: 'blur(4px)',
