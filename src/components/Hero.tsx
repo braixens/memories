@@ -129,7 +129,7 @@ const Hero = () => {
     const beautyClicked = () => {
         tl2.current?.play();
         setTimeout(() => {
-            navigate("/memories");
+            navigate("/memory");
         }, 2000);
     }
 
