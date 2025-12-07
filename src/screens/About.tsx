@@ -7,6 +7,7 @@ import shadows from '../assets/Waking Shadows.mp4'
 import {useEffect, useRef} from "react";
 import bg from '../assets/character.png'
 import {useNavigate} from "react-router";
+import DiscordStatus from "../components/DiscordStatus.tsx";
 
 const About = () => {
     const audioRef = useRef<HTMLAudioElement>(null);
@@ -61,6 +62,14 @@ const About = () => {
                 opacity: 0,
                 delay: 4.5,
             })
+            gsap.from(".status", {
+                duration: 4,
+                ease: "power2.out",
+                x: -200,
+                y: 0,
+                opacity: 0,
+                delay: 4.5,
+            })
             fade.current?.to("#screen", {
                 duration: 2,
                 ease: "power3.inOut",
@@ -77,6 +86,9 @@ const About = () => {
     return (
         <div id="screen">
             <div className="relative w-screen h-screen">
+                <div className="status absolute bottom-50 right-0 z-50 md:w-1/3 sm:w-full">
+                    <DiscordStatus/>
+                </div>
                 <div className="links absolute bottom-0 right-0 z-50">
                     <Links backClicked={() => fadeClicked()}/>
                 </div>

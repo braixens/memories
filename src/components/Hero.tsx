@@ -29,14 +29,7 @@ const Hero = () => {
     useGSAP(() => {
         document.fonts.ready.then(() => {
             tl.current = gsap.timeline({paused: true});
-            tl2.current = gsap.timeline({paused: true, onComplete: function() {
-                    if (audioRef.current) {
-                        audioRef.current?.pause();
-                        audioRef.current.currentTime = 0;
-                        setAudioPlaying(false);
-                        console.log('audio paused');
-                    }}
-                });
+            tl2.current = gsap.timeline({paused: true});
 
             const heroSplit = new SplitText(".title", {
                 type: "chars, words",
@@ -65,6 +58,8 @@ const Hero = () => {
                 duration: 1.8,
                 ease: "expo.out",
                 stagger: 0.06,
+                delay: 3,
+                opacity: 0
             });
 
             tl.current.from(rightSplit.lines, {
@@ -136,7 +131,7 @@ const Hero = () => {
     return (
         <section
             id="hero"
-            className="relative min-h-screen bg-cover bg-center bg-no-repeat scrollbar-hide overflow-y-scroll"
+            className="relative min-h-screen bg-cover bg-center bg-no-repeat scrollbar-hide"
             style={{
                 backgroundImage: `url(${background})`,
                 backgroundAttachment: 'fixed',
@@ -144,9 +139,9 @@ const Hero = () => {
         >
             <div className="absolute inset-0 bg-black opacity-80 z-0"></div>
             <div className="relative z-10 flex flex-col items-center justify-center min-h-screen p-4">
-            <div className="titl1e absolute cursor-pointer">
+            <div className="title absolute cursor-pointer">
 
-                <h1 className="text-white text-5xl font-cloister-black"
+                <h1 className="text-white lg:text-5xl text-3xl font-cloister-black"
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
                     onClick={() => memoryClicked()}
@@ -159,7 +154,7 @@ const Hero = () => {
             </div>
                 <div className="captions">
                     <div className="relative flex justify-between w-full mt-150 text-white z-10">
-                        <p className="text-left w-1/3 mr-5 ml-8 text-3xl font-cloister-black cursor-default"
+                        <p className="text-left md:w-1/3 md:mr-5 md:ml-8 md:text-3xl font-cloister-black cursor-default"
                            onMouseEnter={() => setMemHovered(true)}
                            onMouseLeave={() => setMemHovered(false)}
                            style={{
@@ -175,7 +170,7 @@ const Hero = () => {
                             <span>sorrow, whispering stories of </span>
                             <span>what once was.</span>
                         </p>
-                        <p className="text-center text-2xl font-cloister-black mt-45 cursor-pointer"
+                        <p className="text-center sm:-mt-150 md:text-2xl font-cloister-black md:mt-45 cursor-pointer"
                            onMouseEnter={() => setBeautyHovered(true)}
                            onMouseLeave={() => setBeautyHovered(false)}
                            onClick={() => beautyClicked()}
@@ -187,7 +182,7 @@ const Hero = () => {
                            }} >
                             Beauty often emerges from the fragments left behind.
                         </p>
-                        <p className="text-right w-1/3 ml-5 mr-8 text-3xl font-cloister-black cursor-default"
+                        <p className="text-right sm:w-1/2 md:w-1/3 md:ml-5 md:mr-8 md:text-3xl font-cloister-black cursor-default"
                            onMouseEnter={() => setVoiceHovered(true)}
                            onMouseLeave={() => setVoiceHovered(false)}
                            style={{
