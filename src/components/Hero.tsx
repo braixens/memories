@@ -14,7 +14,6 @@ const Hero = () => {
     const navigate = useNavigate();
     const tl = useRef<GSAPTimeline>(null);
     const tl2 = useRef<GSAPTimeline>(null);
-    const fade = useRef<GSAPTimeline>(null);
     const audioRef = useRef<HTMLAudioElement>(null);
     const [isHovered, setIsHovered] = useState(false)
     const [memHovered, setMemHovered] = useState(false)
@@ -30,18 +29,14 @@ const Hero = () => {
     useGSAP(() => {
         document.fonts.ready.then(() => {
             tl.current = gsap.timeline({paused: true});
-            tl2.current = gsap.timeline({paused: true});
-            fade.current = gsap.timeline({
-                paused: true,
-                onComplete: function() {
+            tl2.current = gsap.timeline({paused: true, onComplete: function() {
                     if (audioRef.current) {
                         audioRef.current?.pause();
                         audioRef.current.currentTime = 0;
                         setAudioPlaying(false);
                         console.log('audio paused');
-                    }
-                }
-            });
+                    }}
+                });
 
             const heroSplit = new SplitText(".title", {
                 type: "chars, words",
@@ -57,6 +52,12 @@ const Hero = () => {
             const centerSplit = new SplitText(".text-center", {
                 type: "chars, words",
             });
+
+            gsap.from("#hero", {
+                opacity: 0,
+                duration: 3,
+                ease: "power3.inOut"
+            })
 
 
             gsap.from(heroSplit.chars, {
@@ -92,12 +93,10 @@ const Hero = () => {
             });
             tl2.current.to("#hero", 2, {
                 opacity: 0,
-            })
-            fade.current.to(audioRef.current, {
-                volume: 0,
+            }).to(audioRef.current, {
+                volume:0,
                 duration: 2,
-                })
-
+            })
         });
     });
 
@@ -114,7 +113,6 @@ const Hero = () => {
             audioRef.current.onended = () => setAudioPlaying(false);
         }
         if (clicked) {
-            fade.current?.play();
             tl2.current?.play();
             setTimeout(() => {
                 navigate("/about");
