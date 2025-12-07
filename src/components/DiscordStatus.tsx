@@ -1,4 +1,4 @@
-import {useLanyardWS} from "use-lanyard";
+/* import {useLanyardWS} from "use-lanyard";
 import type {Types} from 'use-lanyard';
 
 const DiscordStatus = () => {
@@ -17,4 +17,4 @@ const DiscordStatus = () => {
 
     )
 }
-export default DiscordStatus
+export default DiscordStatus */
