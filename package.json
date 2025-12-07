@@ -25,7 +25,8 @@
     "react-router": "^7.10.1",
     "react-tsparticles": "^2.12.2",
     "tailwindcss": "^4.1.17",
-    "tsparticles": "^3.9.1"
+    "tsparticles": "^3.9.1",
+    "use-lanyard": "^1.7.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

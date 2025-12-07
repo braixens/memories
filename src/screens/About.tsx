@@ -1,4 +1,5 @@
 import Card from "../components/Card.tsx";
+import Links from "../components/Links.tsx"
 import {useGSAP} from "@gsap/react";
 import gsap from "gsap";
 import bgblur from '../assets/blur.jpg'
@@ -12,7 +13,6 @@ const About = () => {
         audioRef.current = new Audio(shadows);
         audioRef.current.volume = 0;
     }, []);
-
 
     useGSAP(() => {
         document.fonts.ready.then(() => {
@@ -37,21 +37,41 @@ const About = () => {
             audioRef.current?.play().catch((error) => {
                 console.error("Error playing audio:", error);
             });
+            gsap.from(".card", {
+                duration: 2,
+                ease: "power2.out",
+                y: 175,
+                x: 175,
+                opacity: 0,
+                delay: 1.5,
+            })
+            gsap.from(".links", {
+                duration: 4,
+                ease: "power2.out",
+                x: 0,
+                y: -200,
+                opacity: 0,
+                delay: 4.5,
+            })
+
         })
     })
 
     return (
-        <div>
-            <div className="background w-screen h-screen opacity-0 absolute z-0 bg-cover bg-no-repeat " style={{
+        <div className="relative w-screen h-screen">
+            <div className="links absolute bottom-0 right-0 z-50">
+                <Links/>
+            </div>
+            <div className="background w-full h-full opacity-0 absolute z-0 bg-cover bg-no-repeat " style={{
                 backgroundImage: `url(${bgblur})`,
             }}>
-                <Card/>
+                <div className="card">
+                    <Card/>
+                </div>
             </div>
-
-                <div className="newbackground w-screen h-screen absolute z-10 opacity-0 bg-cover bg-no-repeat " style={{
-                    backgroundImage: `url(${bg})`,
-                }}></div>
-
+            <div className="newbackground w-full h-full absolute z-10 opacity-0 bg-cover bg-no-repeat" style={{
+                backgroundImage: `url(${bg})`,
+            }}></div>
         </div>
     )}
 export default About
