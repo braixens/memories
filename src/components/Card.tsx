@@ -35,7 +35,7 @@ const Card = () => {
                         </span>
                     </div>
                     <div>
-                        <p className="text-white text-xs md:text-sm leading-relaxed mb-4 font-starborn">
+                        <p className="text-white text-xs md:text-sm leading-relaxed mb-2 font-starborn">
                         hi hello I'm dime :3 im passionate about software and coding and all that stuff xD <br/><br/>furry :3 (bat/puppy/dragon) [] lov rhythm games, its basically my life ^_^ <br/><br/> touhou/vocaloid/pokemon fanatic <br/> artcore/speedcore/breakcore &gt;&gt;&gt;<br/><br/>aspiring full stack dev/cybersec enthusiast
                     </p>
                     </div>
