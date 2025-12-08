@@ -25,6 +25,9 @@ const About = () => {
     useGSAP(() => {
         fade.current = gsap.timeline({paused: true, onComplete: function () {navigate("/")}})
         document.fonts.ready.then(() => {
+            gsap.to(".newbackground", {
+                scaleY:'1.03'
+            });
             gsap.to(".background", {
                 opacity: 1,
                 duration: 3,
@@ -37,7 +40,9 @@ const About = () => {
                         ease: "bounce.inOut",
                     });
                 }
+
             });
+
 
             gsap.to(audioRef.current, {
                 duration: 1,
@@ -99,8 +104,9 @@ const About = () => {
                         <Card/>
                     </div>
                 </div>
-                <div className="newbackground w-full h-full absolute z-10 opacity-0 bg-cover bg-no-repeat" style={{
+                <div className="newbackground w-full h-screen absolute z-10 opacity-0 bg-cover bg-no-repeat" style={{
                     backgroundImage: `url(${bg})`,
+                    backgroundPosition: "-10px 10px",
                 }}></div>
             </div>
         </div>

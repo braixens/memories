@@ -94,8 +94,9 @@ const Hero = () => {
                 delay: 1.8
             });
 
-            tl2.current.to("#hero", 2, {
+            tl2.current.to("#hero", {
                 opacity: 0,
+                duration: 2,
             }).to(audioRef.current, {
                 volume:0,
                 duration: 2,

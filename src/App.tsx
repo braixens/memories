@@ -1,8 +1,8 @@
 import gsap from "gsap"
 import { ScrollTrigger, SplitText} from "gsap/all"
 import {Route, Routes} from "react-router";
+import OldHome from "./screens/OldHome.tsx";
 import Home from "./screens/Home.tsx";
-import Memories from "./screens/Memories.tsx";
 import IParticles from "./components/IParticles.tsx";
 import About from "./screens/About.tsx";
 gsap.registerPlugin(ScrollTrigger, SplitText);
@@ -13,7 +13,7 @@ const App = () => {
             <IParticles />
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/memories" element={<Memories />} />
+                <Route path="/memories" element={<OldHome/>}/>
                 <Route path="/about" element={<About/>} />
             </Routes>
         </div>

@@ -21,7 +21,7 @@ const Card = () => {
                     <i className="font-starborn opacity-25 text-xs md:text-lg mt-5 md:mt-10">
                         Visitors since 12-06-2025
                     </i>
-                    <img src="https://count.getloli.com/@memories?name=memories&theme=asoul&padding=3&offset=0&align=top&scale=1&pixelated=1&darkmode=auto" alt="views" className="w-2/2 h-2/2"/>
+                    <img src="https://count.getloli.com/@memories?name=memories&theme=asoul&padding=3&offset=0&align=top&scale=1&pixelated=1&darkmode=auto" alt="views" className="w-2/2 h-2/2 md:w-1/2 md:h-1/2"/>
                 </div>
                 <div className="flex-1">
                     <div className="flex items-center gap-4 mb-4 font-cloister-black">
