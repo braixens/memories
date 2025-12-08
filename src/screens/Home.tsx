@@ -9,21 +9,25 @@ import shard6 from '../assets/shards/shard6.png'
 import shard7 from '../assets/shards/shard5.png'
 import shard8 from '../assets/shards/shard8.png'
 import glass from '../assets/shards/small.png'
-import React, {useRef} from 'react'
+import React, { useRef } from 'react'
 import {useNavigate} from "react-router";
 import {useState} from "react";
+import {SplitText} from "gsap/all";
+
 
 const Home = () => {
     const [shatteredHovered, setShatteredHovered] = useState(false)
     const navigate = useNavigate();
     const fade = useRef<GSAPTimeline>(null);
+    const timelines = useRef<{ [key: string]: GSAPTimeline }>({});
+    const splits = useRef<{ [key: string]: SplitText }>({});
     const shatteredClicked = () => {
-        console.log("shattered clicked");
         fade.current?.play();
         setTimeout(() => {
             navigate("/about");
         }, 2000);
     }
+    const [isLoaded, setIsLoaded] = useState(false);
     const [hoverStates, setHoverStates] = React.useState({
         shard1: false,
         shard2: false,
@@ -35,31 +39,63 @@ const Home = () => {
         shard8: false,
         glass: false,
     });
-    const handleMouseEnter = (shard: string) => {
-        setHoverStates(prev => ({ ...prev, [shard]: true }));
-    };
-    const handleMouseLeave = (shard: string) => {
-        setHoverStates(prev => ({ ...prev, [shard]: false }));
+    const shards = [
+        ".shard1",
+        ".shard2",
+        ".shard3",
+        ".shard4",
+        ".shard5",
+        ".shard6",
+        ".shard7",
+        ".shard8",
+        ".glass"
+    ];
+    const mapping: {
+        shard1: string;
+        shard2: string;
+        shard3: string;
+        shard4: string;
+        shard5: string;
+        shard6: string;
+        shard7: string;
+        shard8: string;
+        [key: string]: string; // Index signature
+    } = {
+        shard1: '.memories',
+        shard2: '.fragments',
+        shard3: '.falling',
+        shard4: '.broken',
+        shard5: '.envision',
+        shard6: '.indefinite',
+        shard7: '.glisten',
+        shard8: '.future',
     };
     useGSAP(() => {
         document.fonts.ready.then(() => {
+            const memorySplit = new SplitText(".shatter", {
+                type: "chars, words",
+            });
+
+
             fade.current = gsap.timeline({paused: true});
+
             gsap.from("#screen", {
                 opacity: 0,
                 duration: 3,
                 ease: "power3.inOut"
             })
-            const shards = [
-                ".shard1",
-                ".shard2",
-                ".shard3",
-                ".shard4",
-                ".shard5",
-                ".shard6",
-                ".shard7",
-                ".shard8",
-                ".glass"
-            ];
+            gsap.from(memorySplit.chars, {
+                yPercent: 100,
+                duration: 1.8,
+                ease: "expo.out",
+                stagger: 0.06,
+                delay: 3,
+                opacity: 0,
+                onComplete: () => setIsLoaded(true),
+            })
+            
+
+
 
             shards.forEach((selector) => {
                 const xDistance = (Math.random() - 0.5) * 50;
@@ -84,12 +120,50 @@ const Home = () => {
                 opacity: 0,
                 duration: 2,
             })
+
+            Object.keys(mapping).forEach((shard: string) => {
+                splits.current[shard] = new SplitText(mapping[shard], {
+                    type: "chars words",});
+
+                timelines.current[shard] = gsap.timeline({ paused: true });
+
+                timelines.current[shard]
+                    .from(splits.current[shard].chars, {
+                        y: "20px",
+                        duration: 1.8,
+                        ease: "expo.out",
+                        stagger: 0.06,
+                        opacity: 0,
+                    }, "0")
+                    .to(memorySplit.chars, {
+                        y: "20px",
+                        duration: 1.8,
+                        ease: "expo.in",
+                        stagger: 0.06,
+                        opacity: 0,
+                    },"0");
+            });
         });
     });
+    const handleMouseEnter = (shard: string) => {
+        setHoverStates(prev => ({ ...prev, [shard]: true }));
+        if (isLoaded){
+            timelines.current[shard]?.play();
+            console.log(timelines.current[shard])
+        }
+
+    };
+    const handleMouseLeave = (shard: string) => {
+        setHoverStates(prev => ({ ...prev, [shard]: false }));
+        if (isLoaded) {
+            timelines.current[shard]?.reverse();
+        }
+
+    };
 
     return (
         <div className="grid grid-cols-3 gap-2 h-screen w-screen" id="screen">
-            <div className="flex items-center justify-center relative z-10">
+            <div className="flex items-center justify-center relative z-200">
                 <img
                     src={shard1}
                     alt="Shard 1"
@@ -105,7 +179,7 @@ const Home = () => {
                 />
             </div>
 
-            <div className="flex items-center justify-center relative z-10">
+            <div className="flex items-center justify-center relative z-200">
                 <img
                     src={shard2}
                     alt="Shard 2"
@@ -121,7 +195,7 @@ const Home = () => {
                 />
             </div>
 
-            <div className="flex items-center justify-center relative z-10">
+            <div className="flex items-center justify-center relative z-200">
                 <img
                     src={shard3}
                     alt="Shard 3"
@@ -137,7 +211,7 @@ const Home = () => {
                 />
             </div>
 
-            <div className="flex items-center justify-center relative z-10">
+            <div className="flex items-center justify-center relative z-200">
                 <img
                     src={shard4}
                     alt="Shard 4"
@@ -158,16 +232,61 @@ const Home = () => {
                     alt="glass"
                     className="object-contain min-w-dvw min-h-dvh glass absolute overflow-visible z-0 opacity-25"
                 />
-                <h1 className="font-cloister-black text-6xl cursor-pointer relative z-0"
-                    onClick={() => shatteredClicked()}
-                    onMouseEnter={() => setShatteredHovered(true)}
-                    onMouseLeave={() => setShatteredHovered(false)}
-                    style={{
-                        textShadow: shatteredHovered
-                            ? '0 0 10px white, 0 0 20px white, 0 0 30px white'
-                            : 'none',
-                        transition: 'text-shadow 1s ease-out'
-                    }}>shattered...</h1>
+                <div className="middle font-cloister-black text-6xl cursor-pointer relative w-screen">
+                    <h1 className="shatter z-100 absolute w-full"
+                       onClick={() => shatteredClicked()}
+                       onMouseEnter={() => {
+                           setShatteredHovered(true);
+
+                       }}
+                       onMouseLeave={() => setShatteredHovered(false)}
+                       style={{
+                           textShadow: shatteredHovered
+                               ? '0 0 10px white, 0 0 20px white, 0 0 30px white'
+                               : 'none',
+                           transition: 'text-shadow 1s ease-out'
+                       }}>shattered...</h1>
+                    <h1 className="memories z-90 absolute w-full"
+                        style={{
+                            textShadow: '0 0 10px white, 0 0 20px white, 0 0 30px white',
+                            transition: 'text-shadow 1s ease-out'
+                        }}>memories...</h1>
+                    <h1 className="fragments z-80 absolute w-full"
+                        style={{
+                            textShadow: '0 0 10px white, 0 0 20px white, 0 0 30px white',
+                            transition: 'text-shadow 1s ease-out'
+                        }}>fragments...</h1>
+                    <h1 className="falling z-70 absolute"
+                        style={{
+                            textShadow: '0 0 10px white, 0 0 20px white, 0 0 30px white',
+                            transition: 'text-shadow 1s ease-out'
+                        }}>falling...</h1>
+                    <h1 className="broken z-60 absolute w-full"
+                        style={{
+                            textShadow: '0 0 10px white, 0 0 20px white, 0 0 30px white',
+                            transition: 'text-shadow 1s ease-out'
+                        }}>broken glass..</h1>
+                    <h1 className="envision z-50 absolute w-full"
+                        style={{
+                            textShadow: '0 0 10px white, 0 0 20px white, 0 0 30px white',
+                            transition: 'text-shadow 1s ease-out'
+                        }}>envisioned...</h1>
+                    <h1 className="indefinite z-40 absolute w-full"
+                        style={{
+                            textShadow: '0 0 10px white, 0 0 20px white, 0 0 30px white',
+                            transition: 'text-shadow 1s ease-out'
+                        }}>indefinitely...</h1>
+                    <h1 className="glisten z-30  absolute w-full"
+                        style={{
+                            textShadow: '0 0 10px white, 0 0 20px white, 0 0 30px white',
+                            transition: 'text-shadow 1s ease-out'
+                        }}>glistening...</h1>
+                    <h1 className="future z-20 absolute"
+                        style={{
+                            textShadow: '0 0 10px white, 0 0 20px white, 0 0 30px white',
+                            transition: 'text-shadow 1s ease-out'
+                        }}>the future beholds...</h1>
+                </div>
             </div>
 
             <div className="flex items-center justify-center relative z-10">

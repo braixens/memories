@@ -1,5 +1,5 @@
 import gsap from "gsap"
-import { ScrollTrigger, SplitText} from "gsap/all"
+import { ScrollTrigger, SplitText } from "gsap/all"
 import {Route, Routes} from "react-router";
 import OldHome from "./screens/OldHome.tsx";
 import Home from "./screens/Home.tsx";
