@@ -14,6 +14,7 @@ const Hero = () => {
     const navigate = useNavigate();
     const tl = useRef<GSAPTimeline>(null);
     const tl2 = useRef<GSAPTimeline>(null);
+    const tlSmall = useRef<GSAPTimeline>(null);
     const audioRef = useRef<HTMLAudioElement>(null);
     const [isHovered, setIsHovered] = useState(false)
     const [memHovered, setMemHovered] = useState(false)
@@ -21,6 +22,7 @@ const Hero = () => {
     const [beautyHovered, setBeautyHovered] = useState(false)
     const [audioPlaying, setAudioPlaying] = useState(false)
     const [clicked, setClicked] = useState(false)
+    const smallDevice = window.matchMedia('(max-width: 768px)');
 
     useEffect(() => {
         audioRef.current = new Audio(gardens);
@@ -30,19 +32,20 @@ const Hero = () => {
         document.fonts.ready.then(() => {
             tl.current = gsap.timeline({paused: true});
             tl2.current = gsap.timeline({paused: true});
+            tlSmall.current = gsap.timeline({paused: true});
 
             const heroSplit = new SplitText(".title", {
                 type: "chars, words",
             });
 
-            const leftSplit = new SplitText(".text-left", {
+            const leftSplit = new SplitText(".first", {
                 type: "lines",
             });
-            const rightSplit = new SplitText(".text-right", {
+            const rightSplit = new SplitText(".second", {
                 type: "lines",
             });
 
-            const centerSplit = new SplitText(".text-center", {
+            const centerSplit = new SplitText(".third", {
                 type: "chars, words",
             });
 
@@ -61,8 +64,12 @@ const Hero = () => {
                 delay: 3,
                 opacity: 0
             });
+            gsap.to(".third", {
+                y: "-15vh",
+                duration: .1,
+            });
 
-            tl.current.from(rightSplit.lines, {
+            tl.current.from(leftSplit.lines, {
                 opacity: 0,
                 yPercent: 100,
                 duration: 1.8,
@@ -70,7 +77,7 @@ const Hero = () => {
                 stagger: 0.1,
                 delay: 1.8,
             });
-            tl.current.from(leftSplit.lines, {
+            tl.current.from(rightSplit.lines, {
                 opacity: 0,
                 yPercent: 100,
                 duration: 1.8,
@@ -86,18 +93,57 @@ const Hero = () => {
                 stagger: 0.06,
                 delay: 1.8
             });
+
             tl2.current.to("#hero", 2, {
                 opacity: 0,
             }).to(audioRef.current, {
                 volume:0,
                 duration: 2,
             })
+
+            tlSmall.current.to(leftSplit.lines, {
+                opacity: 1,
+                y: "-20vh",
+                duration: 4.0,
+                ease: "power4.inOut",
+                stagger: 0.1,
+                }).to(leftSplit.lines, {
+                opacity: 0,
+                y: "-33vh",
+                duration: 1.5,
+                ease: "power3.in",
+                stagger: 0.1,
+            }).to(rightSplit.lines, {
+                opacity: 1,
+                y: "-20vh",
+                duration: 4.0,
+                ease: "power4.inOut",
+                stagger: 0.1,
+            }).to(rightSplit.lines, {
+                opacity: 0,
+                y: "-33vh",
+                duration: 1.5,
+                ease: "power3.in",
+                stagger: 0.1,
+            }).to(centerSplit.chars, {
+                opacity: 1,
+                y: "-5vh",
+                duration: 2.2,
+                ease: "power4.inOut",
+                stagger: 0.06,
+            })
         });
     });
 
 
     const memoryClicked = () => {
-        tl.current?.play();
+        if (!smallDevice.matches) {
+            tl.current?.play();
+            console.log('normal animation playing')
+        } else {
+            tlSmall.current?.play();
+            console.log('small animation playing')
+        }
         if (!audioPlaying && audioRef.current) {
             audioRef.current.play()
                 .then(() => setAudioPlaying(true))
@@ -111,19 +157,18 @@ const Hero = () => {
             tl2.current?.play();
             setTimeout(() => {
                 navigate("/about");
-            }, 2000);
+            }, 4000);
 
-        }
-        else {
+        } else {
             setClicked(true);
         }
+    }
 
-    };
     const beautyClicked = () => {
         tl2.current?.play();
         setTimeout(() => {
             navigate("/memories");
-        }, 2000);
+        }, 4000);
     }
 
 
@@ -137,10 +182,9 @@ const Hero = () => {
                 backgroundAttachment: 'fixed',
             }}
         >
-            <div className="absolute inset-0 bg-black opacity-80 z-0"></div>
-            <div className="relative z-10 flex flex-col items-center justify-center min-h-screen p-4">
-            <div className="title absolute cursor-pointer">
-
+            <div className="black absolute inset-0 bg-black opacity-80 z-0"></div>
+            <div className="relative z-10 flex flex-col items-center justify-center min-h-screen pl-4 pr-4 pt-4">
+            <div className="title md:absolute static cursor-pointer z-30">
                 <h1 className="text-white lg:text-5xl text-3xl font-cloister-black"
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
@@ -152,9 +196,9 @@ const Hero = () => {
                     transition: 'text-shadow 1s ease-out'
                 }} >a new memory has formed...</h1>
             </div>
-                <div className="captions">
-                    <div className="relative flex justify-between w-full mt-150 text-white z-10">
-                        <p className="text-left md:w-1/3 md:mr-5 md:ml-8 md:text-3xl font-cloister-black cursor-default"
+                <div className="captions pt-50 md:pt-0">
+                    <div className="relative flex flex-col justify-between w-full sm:mt-30 md:mt-150 text-white z-10 md:flex-row">
+                        <p className="first text-center md:text-left md:w-1/3 md:mr-5 md:ml-8 text-3xl font-cloister-black cursor-default"
                            onMouseEnter={() => setMemHovered(true)}
                            onMouseLeave={() => setMemHovered(false)}
                            style={{
@@ -170,7 +214,7 @@ const Hero = () => {
                             <span>sorrow, whispering stories of </span>
                             <span>what once was.</span>
                         </p>
-                        <p className="text-center sm:-mt-150 md:text-2xl font-cloister-black md:mt-45 cursor-pointer"
+                        <p className="third absolute md:static text-center text-2xl font-cloister-black md:mt-45 cursor-pointer"
                            onMouseEnter={() => setBeautyHovered(true)}
                            onMouseLeave={() => setBeautyHovered(false)}
                            onClick={() => beautyClicked()}
@@ -182,7 +226,7 @@ const Hero = () => {
                            }} >
                             Beauty often emerges from the fragments left behind.
                         </p>
-                        <p className="text-right sm:w-1/2 md:w-1/3 md:ml-5 md:mr-8 md:text-3xl font-cloister-black cursor-default"
+                        <p className="second absolute md:static text-center md:text-right md:w-1/3 md:ml-5 md:mr-8 text-3xl font-cloister-black cursor-default"
                            onMouseEnter={() => setVoiceHovered(true)}
                            onMouseLeave={() => setVoiceHovered(false)}
                            style={{
