@@ -16,16 +16,16 @@ const DiscordStatus = () => {
 
 
     return (
-        <div className="p-2 rounded-4xl z-20 font-starborn h-fit flex"
+        <div className="rounded-4xl z-20 font-starborn h-fit flex"
              style={{
                  background: 'rgba(255, 255, 255, 0.00)',
                  backdropFilter: 'blur(4px)',
                  boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)'
         }}>
             {presence?.activities.at(1) && <div className="flex">
-                <img src={getUrl(presence.activities.at(1)?.assets?.large_image)}
-                                                   className="w-24 rounded-2xl mr-5" alt="status"/>
-                <div className="flex-col m-auto">
+                <img src={(presence?.activities.at(1)?.application_id === "1221061703505281114") ? getUrl(presence.activities.at(1)?.assets?.large_image) : (presence?.activities.at(1)?.application_id === "1178492879627366472" ? "https://static.wikia.nocookie.net/logopedia/images/4/41/Geometry_Dash_Icon.svg": `https://cdn.discordapp.com/app-assets/${presence?.activities.at(1)?.application_id}/${presence?.activities.at(1)?.assets?.large_image}.png`)}
+                      className="w-24 rounded-4xl mr-5" alt="status"/>
+                <div className="flex-col m-auto p-2">
                     <p className="text-sm">current status: {presence?.discord_status}</p>
                     <p className="text-sm">{presence?.activities.at(1)?.details}</p>
                     <p className="text-sm">{presence?.activities.at(1)?.state}</p>

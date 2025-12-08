@@ -86,10 +86,10 @@ const About = () => {
     return (
         <div id="screen">
             <div className="relative w-screen h-screen">
-                <div className="status absolute bottom-50 right-0 z-50 md:w-1/3 sm:w-full">
+                <div className="status absolute bottom-50 md:bottom-0 md:right-2/5 right-0 z-50 md:w-1/3 sm:w-full">
                     <DiscordStatus/>
                 </div>
-                <div className="links absolute bottom-0 right-0 z-50">
+                <div className="links absolute bottom-0 left-0 z-50 md:w-10/10 flex">
                     <Links backClicked={() => fadeClicked()}/>
                 </div>
                 <div className="background w-full h-full opacity-0 absolute z-0 bg-cover bg-no-repeat " style={{
