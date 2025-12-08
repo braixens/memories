@@ -26,9 +26,9 @@ const DiscordStatus = () => {
                 <img src={(presence?.activities.at(1)?.application_id === "1221061703505281114") ? getUrl(presence.activities.at(1)?.assets?.large_image) : (presence?.activities.at(1)?.application_id === "1178492879627366472" ? "https://static.wikia.nocookie.net/logopedia/images/4/41/Geometry_Dash_Icon.svg": `https://cdn.discordapp.com/app-assets/${presence?.activities.at(1)?.application_id}/${presence?.activities.at(1)?.assets?.large_image}.png`)}
                       className="w-24 rounded-4xl mr-5" alt="status"/>
                 <div className="flex-col m-auto p-2">
-                    <p className="text-sm">current status: {presence?.discord_status}</p>
-                    <p className="text-sm">{presence?.activities.at(1)?.details}</p>
-                    <p className="text-sm">{presence?.activities.at(1)?.state}</p>
+                    <p className="text-xs md:text-sm">current status: {presence?.discord_status}</p>
+                    <p className="text-xs md:text-sm">{presence?.activities.at(1)?.details}</p>
+                    <p className="text-xs md:text-sm">{presence?.activities.at(1)?.state}</p>
                 </div>
             </div>}
         </div>

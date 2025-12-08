@@ -15,10 +15,10 @@ const Card = () => {
                     alt="pfp"
                     className="w-40 h-40 rounded-full border-2 border-white/30 object-top object-cover md:mb-10"
                 />
-                    <p className="text-white/70 text-lg mt-2 font-cloister-black ">
+                    <p className="text-white/70 text-sm md:text-lg mt-2 font-cloister-black ">
                         est 2025 | Made with React + GSAP
                     </p>
-                    <i className="font-starborn opacity-25 mt-10">
+                    <i className="font-starborn opacity-25 text-sm md:text-lg mt-10">
                         Visitors since 12-06-2025
                     </i>
                     <img src="https://count.getloli.com/@memories?name=memories&theme=asoul&padding=3&offset=0&align=top&scale=1&pixelated=1&darkmode=auto" alt="views" className="w-1/2 h-1/2"/>
