@@ -17,6 +17,7 @@ import {SplitText} from "gsap/all";
 
 const Home = () => {
     const [shatteredHovered, setShatteredHovered] = useState(false)
+    const tlshatter = useRef<GSAPTimeline>(null);
     const navigate = useNavigate();
     const fade = useRef<GSAPTimeline>(null);
     const timelines = useRef<{ [key: string]: GSAPTimeline }>({});
@@ -59,7 +60,7 @@ const Home = () => {
         shard6: string;
         shard7: string;
         shard8: string;
-        [key: string]: string; // Index signature
+        [key: string]: string;
     } = {
         shard1: '.memories',
         shard2: '.fragments',
@@ -72,14 +73,11 @@ const Home = () => {
     };
     useGSAP(() => {
         document.fonts.ready.then(() => {
+            tlshatter.current = gsap.timeline({paused: true});
             const memorySplit = new SplitText(".shatter", {
                 type: "chars, words",
             });
-
-
-            fade.current = gsap.timeline({paused: true});
-
-            gsap.from("#screen", {
+          gsap.from("#screen", {
                 opacity: 0,
                 duration: 3,
                 ease: "power3.inOut"
@@ -116,11 +114,6 @@ const Home = () => {
                 });
             });
 
-            fade.current.to("#screen", {
-                opacity: 0,
-                duration: 2,
-            })
-
             Object.keys(mapping).forEach((shard: string) => {
                 splits.current[shard] = new SplitText(mapping[shard], {
                     type: "chars words",});
@@ -129,33 +122,42 @@ const Home = () => {
 
                 timelines.current[shard]
                     .from(splits.current[shard].chars, {
-                        y: "20px",
+                        yPercent: "10",
                         duration: 1.8,
                         ease: "expo.out",
                         stagger: 0.06,
                         opacity: 0,
-                    }, "0")
-                    .to(memorySplit.chars, {
-                        y: "20px",
-                        duration: 1.8,
-                        ease: "expo.in",
-                        stagger: 0.06,
-                        opacity: 0,
-                    },"0");
+                        delay: 1.8
+                    })
             });
+
+            tlshatter.current.to(memorySplit.chars, {
+                yPercent: "10",
+                duration: .8,
+                ease: "expo.in",
+                stagger: 0.06,
+                opacity: 0,
+            });
+
+            fade.current = gsap.timeline({paused: true});
+            fade.current.to("#screen", {
+                opacity: 0,
+                duration: 2,
+            })
         });
     });
     const handleMouseEnter = (shard: string) => {
         setHoverStates(prev => ({ ...prev, [shard]: true }));
         if (isLoaded){
+            tlshatter.current?.play();
             timelines.current[shard]?.play();
-            console.log(timelines.current[shard])
         }
 
     };
     const handleMouseLeave = (shard: string) => {
         setHoverStates(prev => ({ ...prev, [shard]: false }));
         if (isLoaded) {
+            tlshatter.current?.reverse();
             timelines.current[shard]?.reverse();
         }
 
@@ -232,7 +234,7 @@ const Home = () => {
                     alt="glass"
                     className="object-contain min-w-dvw min-h-dvh glass absolute overflow-visible z-0 opacity-25"
                 />
-                <div className="middle font-cloister-black text-6xl cursor-pointer relative w-screen">
+                <div className="middle font-cloister-black text-3xl md:text-6xl cursor-pointer relative w-screen">
                     <h1 className="shatter z-100 absolute w-full"
                        onClick={() => shatteredClicked()}
                        onMouseEnter={() => {
