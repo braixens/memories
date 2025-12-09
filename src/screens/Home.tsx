@@ -235,7 +235,7 @@ const Home = () => {
                     className="object-contain min-w-dvw min-h-dvh glass absolute overflow-visible z-0 opacity-25"
                 />
                 <div className="middle font-cloister-black text-3xl md:text-6xl cursor-pointer relative w-screen">
-                    <h1 className="shatter z-100 absolute w-full"
+                    <h1 className="shatter z-100 absolute w-full text-center"
                        onClick={() => shatteredClicked()}
                        onMouseEnter={() => {
                            setShatteredHovered(true);
@@ -253,32 +253,32 @@ const Home = () => {
                             textShadow: '0 0 10px white, 0 0 20px white, 0 0 30px white',
                             transition: 'text-shadow 1s ease-out'
                         }}>memories...</h1>
-                    <h1 className="fragments z-80 absolute w-full"
+                    <h1 className="fragments z-80 absolute w-full text-center"
                         style={{
                             textShadow: '0 0 10px white, 0 0 20px white, 0 0 30px white',
                             transition: 'text-shadow 1s ease-out'
                         }}>fragments...</h1>
-                    <h1 className="falling z-70 absolute"
+                    <h1 className="falling z-70 absolute text-center w-full"
                         style={{
                             textShadow: '0 0 10px white, 0 0 20px white, 0 0 30px white',
                             transition: 'text-shadow 1s ease-out'
                         }}>falling...</h1>
-                    <h1 className="broken z-60 absolute w-full"
+                    <h1 className="broken z-60 absolute w-full text-center"
                         style={{
                             textShadow: '0 0 10px white, 0 0 20px white, 0 0 30px white',
                             transition: 'text-shadow 1s ease-out'
                         }}>broken glass..</h1>
-                    <h1 className="envision z-50 absolute w-full"
+                    <h1 className="envision z-50 absolute w-full text-center"
                         style={{
                             textShadow: '0 0 10px white, 0 0 20px white, 0 0 30px white',
                             transition: 'text-shadow 1s ease-out'
                         }}>envisioned...</h1>
-                    <h1 className="indefinite z-40 absolute w-full"
+                    <h1 className="indefinite z-40 absolute w-full text-center"
                         style={{
                             textShadow: '0 0 10px white, 0 0 20px white, 0 0 30px white',
                             transition: 'text-shadow 1s ease-out'
                         }}>indefinitely...</h1>
-                    <h1 className="glisten z-30  absolute w-full"
+                    <h1 className="glisten z-30  absolute w-full text-center"
                         style={{
                             textShadow: '0 0 10px white, 0 0 20px white, 0 0 30px white',
                             transition: 'text-shadow 1s ease-out'
