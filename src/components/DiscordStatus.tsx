@@ -7,7 +7,7 @@ import {getUrl} from "../util/getUrl.ts";
 const DiscordStatus = () => {
     const discordID = '190235333768511489';
     const presence = useLanyardWS(discordID)
-	const isCoding = (presence?.activities.at(1)?.application_id === "1221061703505281114" || presence?.activities.at(1)?.application_id === "782685898163617802" || presence?.activities.at(1)?.application_id === "1226141797558779914")
+	const isCoding = (presence?.activities.at(1)?.application_id === "1221061703505281114" || presence?.activities.at(1)?.application_id === "782685898163617802" || presence?.activities.at(1)?.application_id === "1226141797558779914" || presence?.activities.at(1)?.application_id === "1107202385799041054");
 
     useEffect(() => {
         if (presence) {
