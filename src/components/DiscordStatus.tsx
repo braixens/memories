@@ -1,6 +1,6 @@
 import {useLanyardWS} from "use-lanyard";
 // import type { Types } from 'use-lanyard';
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {getUrl} from "../util/getUrl.ts";
 // AVATAR URL <img src={`https://cdn.discordapp.com/avatars/${presence?.discord_user.id}/${presence.discord_user.avatar}.gif`} className="rounded-full h-8 w-8"/>
 
@@ -8,6 +8,27 @@ const DiscordStatus = () => {
     const discordID = '190235333768511489';
     const presence = useLanyardWS(discordID)
 	const isCoding = (presence?.activities.at(1)?.application_id === "1221061703505281114" || presence?.activities.at(1)?.application_id === "782685898163617802" || presence?.activities.at(1)?.application_id === "1226141797558779914" || presence?.activities.at(1)?.application_id === "1107202385799041054");
+    const startTime = presence?.activities.at(1)?.timestamps?.start;
+    const [timeSince, setTimeSince] = useState('00:00:00');
+
+    useEffect(() => {
+        if (!startTime) return;
+        const updateElapsedTime = () => {
+            const currentTime = Date.now();
+            const elapsedTime = currentTime - startTime;
+            const totalSeconds = Math.floor( elapsedTime / 1000) % 60;
+            const totalMinutes = Math.floor(elapsedTime / 60000) % 60;
+            const totalHours = Math.floor(elapsedTime / 3600000);
+            setTimeSince(`${String(totalHours).padStart(2, '0')}:${String(totalMinutes).padStart(2,'0')}:${String(totalSeconds).padStart(2 ,'0')}`);
+            }
+            updateElapsedTime();
+            const intervalId = setInterval(updateElapsedTime, 1000);
+            return () => {
+            if (intervalId) {
+                clearInterval(intervalId);
+            }
+        };
+    }, [startTime]);
 
     useEffect(() => {
         if (presence) {
@@ -29,7 +50,7 @@ const DiscordStatus = () => {
                          className="w-24 rounded-4xl mr-5" alt="status"/>
                     <div className="flex-col m-auto p-2">
                         <p className="text-xs md:text-sm">current status: {presence?.discord_status} {isCoding ? "(Coding)" : "Gaming"}</p>
-                        <p className="text-xs md:text-sm">{presence?.activities.at(1)?.details}</p>
+                        <p className="text-xs md:text-sm">{presence?.activities.at(1)?.details} for {timeSince} </p>
                         <p className="text-xs md:text-sm">{presence?.activities.at(1)?.state}</p>
                     </div>
                 </div>}
