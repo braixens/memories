@@ -11,6 +11,7 @@ const DiscordStatus = () => {
 	const isNeovim = presence?.activities.at(1)?.application_id === "1219918880005165137";
 	const startTime = (presence?.activities.at(1)?.timestamps) ? presence?.activities.at(1)?.timestamps?.start : presence?.activities.at(1)?.created_at
 	const [timeSince, setTimeSince] = useState('00:00:00');
+    const hasLargeImage = !!(presence?.activities.at(1)?.assets?.large_image);
 
 	useEffect(() => {
 		if (!startTime) return;
@@ -47,7 +48,7 @@ const DiscordStatus = () => {
 						backdropFilter: 'blur(4px)',
 						boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)'
 					}}>
-					<img src={isCoding ? getUrl(presence.activities.at(1)?.assets?.large_image) : (presence?.activities.at(1)?.application_id === "1178492879627366472" ? "https://static.wikia.nocookie.net/logopedia/images/4/41/Geometry_Dash_Icon.svg" : ((presence?.activities.at(1)?.application_id === "356875221078245376") ? "https://upload.wikimedia.org/wikipedia/commons/5/55/Overwatch_circle_logo.svg" : (presence?.activities.at(1)?.application_id === "1161796385562177627" ? "https://games.mxdwn.com/wp-content/uploads/2021/07/ggst-logo.jpg" : (presence?.activities.at(1)?.application_id === "762434991303950386" ? `https://static.wikia.nocookie.net/gensin-impact/images/8/80/Genshin_Impact.png`: `https://cdn.discordapp.com/app-assets/${presence?.activities.at(1)?.application_id}/${presence?.activities.at(1)?.assets?.large_image}.png`))))}
+					<img src={isCoding ? getUrl(presence.activities.at(1)?.assets?.large_image) :  (hasLargeImage) ? `https://cdn.discordapp.com/app-assets/${presence?.activities.at(1)?.application_id}/${presence?.activities.at(1)?.assets?.large_image}.png` : `https://dcdn.dstn.to/app-icons/${presence?.activities.at(1)?.application_id}`}
 						className="w-24 rounded-4xl mr-5" alt="status" />
 					<div className="flex-col m-auto p-2">
 						<p className="text-xs md:text-sm">current status: {presence?.discord_status} - {(isCoding && !isNeovim) ? "(Coding)" : (isNeovim) ? "(Neovim)" : presence?.activities.at(1)?.name}</p>
