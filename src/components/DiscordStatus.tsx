@@ -48,7 +48,7 @@ const DiscordStatus = () => {
 						backdropFilter: 'blur(4px)',
 						boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)'
 					}}>
-					<img src={isCoding ? getUrl(presence.activities.at(1)?.assets?.large_image) :  (hasLargeImage) ? `https://cdn.discordapp.com/app-assets/${presence?.activities.at(1)?.application_id}/${presence?.activities.at(1)?.assets?.large_image}.png` : `https://dcdn.dstn.to/app-icons/${presence?.activities.at(1)?.application_id}`}
+					<img src={presence.activities.at(1)?.assets?.large_image?.includes('mp:') ? getUrl(presence.activities.at(1)?.assets?.large_image) :  (hasLargeImage) ? `https://cdn.discordapp.com/app-assets/${presence?.activities.at(1)?.application_id}/${presence?.activities.at(1)?.assets?.large_image}.png` : `https://dcdn.dstn.to/app-icons/${presence?.activities.at(1)?.application_id}`}
 						className="w-24 rounded-4xl mr-5" alt="status" />
 					<div className="flex-col m-auto p-2">
 						<p className="text-xs md:text-sm">current status: {presence?.discord_status} - {(isCoding && !isNeovim) ? "(Coding)" : (isNeovim) ? "(Neovim)" : presence?.activities.at(1)?.name}</p>
