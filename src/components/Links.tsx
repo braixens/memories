@@ -1,7 +1,7 @@
 import github from '../assets/Github.svg'
 // import discord from '../assets/discord.png'
 import back from '../assets/backicon.png'
-// import osu from '../assets/osu.png'
+import osu from '../assets/osu.svg'
 // import tele from '../assets/tele.png'
 import cure1 from '../assets/pixel.gif'
 import cure2 from '../assets/cure2.gif'
@@ -38,7 +38,7 @@ const Links = ({ backClicked }) => {
                     <img src='https://www.svgrepo.com/show/506463/discord.svg' alt="discord" className="w-12 h-12"/>
                 </a>
                 <a href="https://osu.ppy.sh/users/syI" rel="noreferrer" target="_blank">
-                    <img src='https://upload.wikimedia.org/wikipedia/commons/1/1e/Osu%21_Logo_2016.svg' alt="osu" className="w-12 h-12"/>
+                    <img src={osu} alt="osu" className="w-12 h-12"/>
                 </a>
                 <a href="https://t.me/sylveon" rel="noreferrer" target="_blank">
                     <img src='https://www.svgrepo.com/show/394493/telegram.svg' alt="tele" className="w-12 h-12"/>
