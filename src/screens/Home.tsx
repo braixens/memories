@@ -10,7 +10,7 @@ import shard7 from '../assets/shards/shard5.png'
 import shard8 from '../assets/shards/shard8.png'
 import glass from '../assets/shards/small.png'
 import React, { useRef } from 'react'
-import {useNavigate} from "react-router";
+// import {useNavigate} from "react-router";
 import {useState} from "react";
 import {SplitText} from "gsap/all";
 
@@ -18,16 +18,16 @@ import {SplitText} from "gsap/all";
 const Home = () => {
     const [shatteredHovered, setShatteredHovered] = useState(false)
     const tlshatter = useRef<GSAPTimeline>(null);
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const fade = useRef<GSAPTimeline>(null);
     const timelines = useRef<{ [key: string]: GSAPTimeline }>({});
     const splits = useRef<{ [key: string]: SplitText }>({});
-    const shatteredClicked = () => {
+    /* const shatteredClicked = () => {
         fade.current?.play();
         setTimeout(() => {
             navigate("/about");
         }, 2000);
-    }
+    } */
     const [isLoaded, setIsLoaded] = useState(false);
     const [hoverStates, setHoverStates] = React.useState({
         shard1: false,
@@ -236,7 +236,7 @@ const Home = () => {
                 />
                 <div className="middle font-cloister-black text-3xl md:text-6xl cursor-pointer relative w-screen">
                     <h1 className="shatter z-100 absolute w-full text-center"
-                       onClick={() => shatteredClicked()}
+                       // onClick={() => shatteredClicked()}
                        onMouseEnter={() => {
                            setShatteredHovered(true);
 
