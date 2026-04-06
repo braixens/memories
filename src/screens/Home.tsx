@@ -236,7 +236,7 @@ const Home = () => {
                 />
                 <div className="middle font-cloister-black text-3xl md:text-6xl cursor-pointer relative w-screen">
                     <h1 className="shatter z-100 absolute w-full text-center"
-                       // onClick={() => shatteredClicked()}
+                       onClick={() => shatteredClicked()}
                        onMouseEnter={() => {
                            setShatteredHovered(true);
 
