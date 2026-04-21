@@ -1,8 +1,7 @@
 import github from '../assets/Github.svg'
-// import discord from '../assets/discord.png'
 import back from '../assets/backicon.png'
 import osu from '../assets/osu.svg'
-// import tele from '../assets/tele.png'
+import discord from '../assets/Discord.svg'
 import cure1 from '../assets/pixel.gif'
 import cure2 from '../assets/cure2.gif'
 import cure3 from '../assets/cure3.webp'
@@ -35,7 +34,7 @@ const Links = ({ backClicked }) => {
                     <img src={github} alt="github" className="w-12 h-12"/>
                 </a>
                 <a href="https://discord.com/users/190235333768511489" rel="noreferrer" target="_blank">
-                    <img src='https://www.svgrepo.com/show/506463/discord.svg' alt="discord" className="w-12 h-12"/>
+                    <img src={discord} alt="discord" className="w-12 h-12"/>
                 </a>
                 <a href="https://osu.ppy.sh/users/syI" rel="noreferrer" target="_blank">
                     <img src={osu} alt="osu" className="w-12 h-12"/>
